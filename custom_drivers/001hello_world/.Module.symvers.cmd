@@ -1,0 +1,1 @@
+savedcmd_/home/prashant/workspace/ldd/custom_drivers/001hello_world/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/prashant/workspace/ldd/custom_drivers/001hello_world/Module.symvers -T /home/prashant/workspace/ldd/custom_drivers/001hello_world/modules.order -i Module.symvers -e 

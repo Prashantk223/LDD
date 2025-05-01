@@ -1,0 +1,1 @@
+savedcmd_/home/prashant/workspace/ldd/custom_drivers/001hello_world/modules.order := {   echo /home/prashant/workspace/ldd/custom_drivers/001hello_world/main.o; :; } > /home/prashant/workspace/ldd/custom_drivers/001hello_world/modules.order

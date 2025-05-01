@@ -1,0 +1,1 @@
+savedcmd_/home/prashant/workspace/ldd/custom_drivers/001hello_world/main.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o /home/prashant/workspace/ldd/custom_drivers/001hello_world/main.ko /home/prashant/workspace/ldd/custom_drivers/001hello_world/main.o /home/prashant/workspace/ldd/custom_drivers/001hello_world/main.mod.o

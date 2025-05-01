@@ -1,0 +1,1 @@
+savedcmd_/home/prashant/workspace/ldd/custom_drivers/002psuedo_char_driver/modules.order := {   echo /home/prashant/workspace/ldd/custom_drivers/002psuedo_char_driver/main.o; :; } > /home/prashant/workspace/ldd/custom_drivers/002psuedo_char_driver/modules.order
