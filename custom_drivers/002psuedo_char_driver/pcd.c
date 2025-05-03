@@ -4,6 +4,7 @@
 #include <linux/device.h>
 #include <linux/kdev_t.h>
 #include <linux/uaccess.h>
+#include <linux/err.h>
 
 #undef pr_fmt
 //#define pr_fmt(fmt) fmt
@@ -25,33 +26,38 @@ int pcd_release(struct inode *inode, struct file *filp);
 
 loff_t pcd_lseek (struct file *filp, loff_t offset, int whence)
 {
-    pr_info("lseek called\n");
-    pr_info("current file position = %lld\n", filp->pos);
 
     loff_t temp = 0;
+
+    pr_info("lseek called\n");
+    pr_info("current file position = %lld\n", filp->f_pos);
+
     switch(whence)
     {
         case SEEK_SET:
             if((offset > DEV_MEM_SIZE) || (offset < 0))
                 return -EINVAL;
-            filp->pos = offset;
+            filp->f_pos = offset;
+            break;
         case SEEK_CUR:
-            temp = filp->pos + offset;
+            temp = filp->f_pos + offset;
             if((temp > DEV_MEM_SIZE) || (temp < 0))
                 return -EINVAL;
-            filp->pos = temp;
+            filp->f_pos = temp;
+            break;
         case SEEK_END:
             temp = DEV_MEM_SIZE + offset;
             if((temp > DEV_MEM_SIZE) || (temp < 0))
                 return -EINVAL;
-            filp->pos = temp;
+            filp->f_pos = temp;
+            break;
         default:
             return -EINVAL;
     }
     
-    pr_info("new file position = %lld\n", filp->pos);
+    pr_info("new file position = %lld\n", filp->f_pos);
 
-    return filp->pos;
+    return filp->f_pos;
 }
 ssize_t pcd_read (struct file *filp, char __user *buff, size_t count, loff_t *f_pos)
 {
@@ -91,7 +97,7 @@ ssize_t pcd_write (struct file *filp, const char __user *buff, size_t count, lof
         return -ENOMEM;
 
     /*Copy to user*/
-    if(copy_from_user(buff, &device_buffer[*f_pos], count))
+    if(copy_from_user(&device_buffer[*f_pos], buff,  count))
         return -EFAULT;
 
     /*update the current file operation*/
@@ -149,21 +155,32 @@ static int __init pcd_driver_nit(void)
 
     //4. Create a device class
     // /sysis/pcd_class/pcd_device/device_number
-    pcd_class = class_create("pcd_class");
+    pcd_class = class_create(THIS_MODULE, "pcd_class");
     /*In case of error NULL is not returned instead ERROR pointer is returned. Error value
     in converted to void pointer type*/
-    if(IS_ERROR(pcd_class))
+    if(IS_ERR(pcd_class))
     {
         pr_err("Class creation failed\n");
         ret = PTR_ERR(pcd_class); /*Extract error using macro*/
-        goto cdev_failed;
+        goto cdev_cdel;
     }     
     //5. populate the sysfs with device configuration - /sysis/pcd_class/pcd_device/device_number
     device_pcd = device_create(pcd_class, NULL, device_number, NULL, "pcd");
-    
+    if(IS_ERR(device_pcd))
+    {
+        pr_err("device creation failed\n");
+        ret = PTR_ERR(device_pcd); /*Extract error using macro*/
+        goto class_cdel;
+    }  
     pr_info("Module Init was successful\n");
 
     return 0;
+
+class_cdel:
+    device_destroy(pcd_class, device_number);
+
+cdev_cdel:
+    cdev_del(&pcd_cdev);
 
 unreg_chrdev:
     unregister_chrdev_region(device_number, 1);

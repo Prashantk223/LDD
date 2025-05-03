@@ -27,7 +27,7 @@ __section(".gnu.linkonce.this_module") = {
 	.arch = MODULE_ARCH_INIT,
 };
 
-#ifdef CONFIG_RETPOLINE
+#ifdef CONFIG_MITIGATION_RETPOLINE
 MODULE_INFO(retpoline, "Y");
 #endif
 
@@ -41,21 +41,21 @@ __used __section("__versions") =
 	"_printk\0"
 	"\x1c\x00\x00\x00\x2b\x2f\xec\xe3"
 	"alloc_chrdev_region\0"
-	"\x14\x00\x00\x00\x60\x73\x77\x14"
+	"\x14\x00\x00\x00\x1e\x70\xe8\x75"
 	"cdev_init\0\0\0"
-	"\x14\x00\x00\x00\xb1\x19\x54\xaa"
+	"\x14\x00\x00\x00\x5e\xc3\x64\xaa"
 	"cdev_add\0\0\0\0"
-	"\x18\x00\x00\x00\xe2\x75\x96\x16"
+	"\x18\x00\x00\x00\x4f\x1e\x1f\x59"
 	"class_create\0\0\0\0"
-	"\x18\x00\x00\x00\xc3\x9e\x64\x92"
+	"\x18\x00\x00\x00\x91\x7d\x78\x49"
 	"device_create\0\0\0"
 	"\x1c\x00\x00\x00\xca\x39\x82\x5b"
 	"__x86_return_thunk\0\0"
-	"\x18\x00\x00\x00\xd7\xd3\x75\x6d"
+	"\x18\x00\x00\x00\xde\x9f\x8a\x25"
 	"module_layout\0\0\0"
 	"\x00\x00\x00\x00\x00\x00\x00\x00";
 
 MODULE_INFO(depends, "");
 
 
-MODULE_INFO(srcversion, "04EA4E5832BDE857B77FC1E");
+MODULE_INFO(srcversion, "A2E8F1915BD612BF89C25D2");

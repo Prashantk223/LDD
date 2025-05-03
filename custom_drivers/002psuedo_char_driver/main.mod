@@ -1,1 +1,2 @@
-/home/prashant/workspace/ldd/custom_drivers/002psuedo_char_driver/main.o
+/home/prashant/workspace/LDD/custom_drivers/002psuedo_char_driver/main.o
+
