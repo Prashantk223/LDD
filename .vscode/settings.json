@@ -10,6 +10,7 @@
     ],
     "files.associations": {
         "*.conf": "bitbake",
-        "*.inc": "bitbake"
+        "*.inc": "bitbake",
+        "module.h": "c"
     }
 }

@@ -1,0 +1,1 @@
+savedcmd_/home/prashant/workspace/LDD/custom_drivers/004-pcd_paltfrom_driver/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/prashant/workspace/LDD/custom_drivers/004-pcd_paltfrom_driver/Module.symvers -T /home/prashant/workspace/LDD/custom_drivers/004-pcd_paltfrom_driver/modules.order -i Module.symvers -e 
