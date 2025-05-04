@@ -1,0 +1,1 @@
+savedcmd_/home/prashant/workspace/LDD/custom_drivers/002psuedo_char_driver/pcd.mod := printf '%s\n'   pcd.o | awk '!x[$$0]++ { print("/home/prashant/workspace/LDD/custom_drivers/002psuedo_char_driver/"$$0) }' > /home/prashant/workspace/LDD/custom_drivers/002psuedo_char_driver/pcd.mod

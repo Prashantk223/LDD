@@ -5,6 +5,7 @@
 #include <linux/kdev_t.h>
 #include <linux/uaccess.h>
 #include <linux/err.h>
+#include <linux/version.h>
 
 #undef pr_fmt
 //#define pr_fmt(fmt) fmt
@@ -86,7 +87,6 @@ ssize_t pcd_read (struct file *filp, char __user *buff, size_t count, loff_t *f_
 ssize_t pcd_write (struct file *filp, const char __user *buff, size_t count, loff_t *f_pos)
 {
     pr_info("write called for %zu bytes \n", count);
-    pr_info("write called for %zu bytes \n", count);
     pr_info("Current file position = %lld", *f_pos);
 
       /*Adjust the count*/
@@ -94,8 +94,10 @@ ssize_t pcd_write (struct file *filp, const char __user *buff, size_t count, lof
       count = DEV_MEM_SIZE - *f_pos;
 
     if(!count) 
+    {
         return -ENOMEM;
-
+        pr_err("No space left on device \n");
+    }
     /*Copy to user*/
     if(copy_from_user(&device_buffer[*f_pos], buff,  count))
         return -EFAULT;
@@ -155,7 +157,11 @@ static int __init pcd_driver_nit(void)
 
     //4. Create a device class
     // /sysis/pcd_class/pcd_device/device_number
-    pcd_class = class_create(THIS_MODULE, "pcd_class");
+    #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 27))
+    pcd_class = class_create("pcd_class");
+    #else
+    pcd_class = class_create(HIS_MODULE, "pcd");
+    #endif
     /*In case of error NULL is not returned instead ERROR pointer is returned. Error value
     in converted to void pointer type*/
     if(IS_ERR(pcd_class))
