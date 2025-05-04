@@ -84,6 +84,7 @@ ssize_t pcd_read(struct file *filp, char __user *buff, size_t count, loff_t *f_p
 ssize_t pcd_write(struct file *filp, const char __user *buff, size_t count, loff_t *f_pos);
 int pcd_open(struct inode *inode, struct file *filp);
 int pcd_release(struct inode *inode, struct file *filp);
+int check_permission(int access_mode, int dev_permission);
 
 loff_t pcd_lseek (struct file *filp, loff_t offset, int whence)
 {
@@ -184,21 +185,25 @@ ssize_t pcd_write (struct file *filp, const char __user *buff, size_t count, lof
 int check_permission(int access_mode, int dev_permission)
 {
     pr_info("Device permission = %d\n", dev_permission);
-    pr_info("User permission = %d\n", user_permission);
+    pr_info("User permission = %d\n", access_mode);
 
-    if((dev_permission & user_permission) == 0)
+    if(dev_permission == READ_WRITE)
     {
-        pr_err("Permission denied\n");
-        return -EACCES;
-    }
-    else
-    {
-        pr_info("Permission granted\n");
+        pr_info("Read and write permission granted\n");
         return 0;
     }
-}
-{
-    return 0;
+    else if((dev_permission == READ_ONLY) && ((access_mode & FMODE_READ) && !(access_mode & FMODE_WRITE)))
+    {
+        pr_err("Read and write permission granted\n");
+        return 0;
+    }
+    else if((dev_permission == WRITE_ONLY) && ((access_mode & FMODE_WRITE) && !(access_mode & FMODE_READ)))
+    {
+        pr_err("Read and write permission granted\n");
+        return 0;
+    }
+    
+    return -EPERM;
 }
 int pcd_open (struct inode *inode, struct file *filp)
 {
