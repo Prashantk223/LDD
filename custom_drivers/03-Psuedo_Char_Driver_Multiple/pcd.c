@@ -177,7 +177,7 @@ ssize_t pcd_write (struct file *filp, const char __user *buff, size_t count, lof
     /*Display operation details*/
     pr_info("number of bytes successfully written = %zu\n", count);
     pr_info("Updated file position = %lld", *f_pos);
-    return 0;
+    return count;
 }
 
 
@@ -228,11 +228,13 @@ int pcd_open (struct inode *inode, struct file *filp)
     ret =  check_permission(filp->f_flags, pcdev_data->permission);
     if(ret < 0)
     {
+        pr_info("Permission denied\n");
         pr_err("Permission denied\n");
         return ret;
     }
     else if(ret == -EACCES)
     {
+        pr_info("Permission denied\n");
         pr_err("Permission denied\n");
         return ret;
     }
