@@ -2,7 +2,15 @@
 #include <linux/platform_device.h>
 #include "platform.h"
 
-/*Create 2 platform data */
+#undef pr_fmt
+//#define pr_fmt(fmt) fmt
+#define pr_fmt(fmt) "%s:" fmt, __func__
+
+void pcdev_release(struct device *dev)
+{
+    pr_info("Device released\n");
+}
+/*1. Create 2 platform   */
 struct pcdev_platform_data pcdev_pdata[2] = {
     {
         .size = 512,
@@ -22,7 +30,7 @@ struct platform_device platform_pcdev1 = {
     .name = "psuedo_char_device",
     .id = 0,
     .dev = {
-        .release = NULL,
+        .release = pcdev_release, /* this is called when device is removed */
         .platform_data = &pcdev_pdata[0],
     },
 };
@@ -31,7 +39,7 @@ struct platform_device platform_pcdev2 =
     .name = "psuedo_char_device",
     .id = 1,
     .dev = {
-        .release = NULL,
+        .release = pcdev_release,
         .platform_data = &pcdev_pdata[1],
     },
 };
@@ -54,7 +62,7 @@ static int __init pcdev_platform_init(void)
         return ret;
     }
 
-    pr_info("Platform devices registered successfully\n");
+    pr_info("Platform devices setup module registered successfully\n");
     return 0;
 }
 

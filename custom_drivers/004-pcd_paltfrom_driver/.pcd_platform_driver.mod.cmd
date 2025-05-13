@@ -1,0 +1,1 @@
+savedcmd_/home/prashant/workspace/LDD/custom_drivers/004-pcd_paltfrom_driver/pcd_platform_driver.mod := printf '%s\n'   pcd_platform_driver.o | awk '!x[$$0]++ { print("/home/prashant/workspace/LDD/custom_drivers/004-pcd_paltfrom_driver/"$$0) }' > /home/prashant/workspace/LDD/custom_drivers/004-pcd_paltfrom_driver/pcd_platform_driver.mod

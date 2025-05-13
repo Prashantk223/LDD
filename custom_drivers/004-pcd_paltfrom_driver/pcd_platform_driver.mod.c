@@ -39,10 +39,18 @@ __used __section("__versions") =
 	"_printk\0"
 	"\x1c\x00\x00\x00\xca\x39\x82\x5b"
 	"__x86_return_thunk\0\0"
-	"\x24\x00\x00\x00\xaa\x28\x2a\xb5"
-	"platform_device_register\0\0\0\0"
-	"\x24\x00\x00\x00\xe2\x9f\xbc\x49"
-	"platform_device_unregister\0\0"
+	"\x1c\x00\x00\x00\x48\x9f\xdb\x88"
+	"__check_object_size\0"
+	"\x18\x00\x00\x00\xe1\xbe\x10\x6b"
+	"_copy_to_user\0\0\0"
+	"\x24\x00\x00\x00\xdb\xa0\x79\x0f"
+	"__platform_driver_register\0\0"
+	"\x24\x00\x00\x00\x19\xc8\x15\x20"
+	"platform_driver_unregister\0\0"
+	"\x18\x00\x00\x00\xc2\x9c\xc4\x13"
+	"_copy_from_user\0"
+	"\x28\x00\x00\x00\xb3\x1c\xa2\x87"
+	"__ubsan_handle_out_of_bounds\0\0\0\0"
 	"\x14\x00\x00\x00\xbb\x6d\xfb\xbd"
 	"__fentry__\0\0"
 	"\x18\x00\x00\x00\xde\x9f\x8a\x25"
@@ -52,4 +60,4 @@ __used __section("__versions") =
 MODULE_INFO(depends, "");
 
 
-MODULE_INFO(srcversion, "5009F5AD6E21F0A2DCCDAB5");
+MODULE_INFO(srcversion, "6D8B459AFBBB9EE6DD3825E");
