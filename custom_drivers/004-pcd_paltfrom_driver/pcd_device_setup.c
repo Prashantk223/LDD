@@ -24,6 +24,14 @@ struct pcdev_platform_data pcdev_pdata[2] = {
     }
 };
 
+struct pcdev_private_data
+{
+    struct pcdev_platform_data pdata;
+    char *buffer;
+    dev_t dev_num;
+    struct cdev cdev;
+}
+
 /* 2. Create 2 platfrom devices */
 
 struct platform_device platform_pcdev1 = {
