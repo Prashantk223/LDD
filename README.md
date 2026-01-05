@@ -1,4 +1,3 @@
-** Linux Device Driver Development
 A low-level Linux character device driver that exposes a pseudo device file interface to user space.
 The driver supports read/write operations, device tree probing, and multiple device instances using the Linux device model.
 
